@@ -25,7 +25,7 @@ public class Persona{
 	public void setNombre(String nombre){
 		this.nombre = nombre;
 	}
-	public void setApellido1(String apellidos){
+	public void setApellidos(String apellidos){
 		this.apellidos = apellidos;
 	}
 	public void setDireccion(String email){

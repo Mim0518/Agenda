@@ -21,7 +21,7 @@ public class Agenda extends JFrame implements ActionListener{
     JButton btnAnadir = new JButton ("Añadir Persona");
     JButton btnQuitar = new JButton ("Quitar Persona");
     JButton btnGuardarFich = new JButton ("Guardar Fichero");
-    JButton btnBorrarCuadros = new JButton ("Borrar Cuadros");
+    JButton btnBorrarCuadros = new JButton ("Limpiar");
     ArrayList<Persona> listaPersonas = new ArrayList<Persona>();
     file f = new file();
     int indice = 0;
@@ -63,6 +63,7 @@ public class Agenda extends JFrame implements ActionListener{
         getContentPane().add(encabezado, BorderLayout.NORTH);
         getContentPane().add(centro, BorderLayout.CENTER);
         getContentPane().add(botonera, BorderLayout.SOUTH);
+        setTitle("Agenda");
         setVisible(true);
     }   
     public void actionPerformed(ActionEvent e){
@@ -74,6 +75,54 @@ public class Agenda extends JFrame implements ActionListener{
             txtEmail.setText(p.getDireccion());
             txtTelefono.setText(p.getTelefono());
         }
-        
+        if(e.getSource() == btnBorrarCuadros){
+            txtApellidos.setText("");
+            txtEmail.setText("");
+            txtNombre.setText("");
+            txtTelefono.setText("");
+        }
+        if(e.getSource() == btnAnadir){
+            Persona x = new Persona(txtNombre.getText(), txtApellidos.getText(), txtEmail.getText(), txtTelefono.getText());
+            listaPersonas.add(x);
+            personas.removeAllItems();
+            for (int i = 0; i < listaPersonas.size(); i++){
+                Persona p = (Persona)(listaPersonas.get(i));
+                personas.addItem(p.getNombre() + " " + p.getApellidos());
+            }
+            txtApellidos.setText("");
+            txtEmail.setText("");
+            txtNombre.setText("");
+            txtTelefono.setText("");
+        }
+        if(e.getSource() == btnQuitar){
+            indice = f.buscaPersona(listaPersonas, personas);
+            listaPersonas.remove(indice);
+            personas.removeAllItems();
+            for (int i = 0; i < listaPersonas.size(); i++){
+                Persona p = (Persona)(listaPersonas.get(i));
+                personas.addItem(p.getNombre() + " " + p.getApellidos());
+            }
+            txtApellidos.setText("");
+            txtEmail.setText("");
+            txtNombre.setText("");
+            txtTelefono.setText("");
+        }
+        if(e.getSource() == btnGuardar){
+            indice = f.buscaPersona(listaPersonas, personas);
+            Persona x = (Persona)(listaPersonas.get(indice));
+            x.setApellidos(txtApellidos.getText());
+            x.setNombre(txtNombre.getText());
+            x.setDireccion(txtEmail.getText());
+            x.setTelefono(txtTelefono.getText());
+            personas.removeAllItems();
+            for (int i = 0; i < listaPersonas.size(); i++){
+                Persona p = (Persona)(listaPersonas.get(i));
+                personas.addItem(p.getNombre() + " " + p.getApellidos());
+            }
+            txtApellidos.setText("");
+            txtEmail.setText("");
+            txtNombre.setText("");
+            txtTelefono.setText("");
+        }
     }
 }
