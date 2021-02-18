@@ -35,7 +35,7 @@ public class Persona{
 		this.telefono = telefono;
 	}
 	public String toString(){
-		return apellidos + ", " + nombre + ", " + email + ", " + telefono;
+		return nombre + ", " + apellidos + ", " + email + ", " + telefono;
 	}
 
 }

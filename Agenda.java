@@ -7,7 +7,9 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-public class Agenda extends JFrame implements ActionListener{
+import java.io.IOException;
+
+public class Agenda extends JFrame implements ActionListener {
     JComboBox personas = new JComboBox();
     JTextField txtNombre = new JTextField(20);
     JTextField txtApellidos = new JTextField(20);
@@ -16,19 +18,21 @@ public class Agenda extends JFrame implements ActionListener{
     JPanel botonera = new JPanel();
     JPanel centro = new JPanel();
     JPanel encabezado = new JPanel();
-    JButton btnVer = new JButton ("Ver Datos");
-    JButton btnGuardar = new JButton ("Modificar Datos");
-    JButton btnAnadir = new JButton ("Añadir Persona");
-    JButton btnQuitar = new JButton ("Quitar Persona");
-    JButton btnGuardarFich = new JButton ("Guardar Fichero");
-    JButton btnBorrarCuadros = new JButton ("Limpiar");
+    JButton btnVer = new JButton("Ver Datos");
+    JButton btnGuardar = new JButton("Modificar Datos");
+    JButton btnAnadir = new JButton("Añadir Persona");
+    JButton btnQuitar = new JButton("Quitar Persona");
+    JButton btnGuardarFich = new JButton("Guardar Fichero");
+    JButton btnBorrarCuadros = new JButton("Limpiar");
     ArrayList<Persona> listaPersonas = new ArrayList<Persona>();
     file f = new file();
     int indice = 0;
-    public void agregarALista(Persona p){
+
+    public void agregarALista(Persona p) {
         listaPersonas.add(p);
     }
-    public Agenda(){
+
+    public Agenda() {
         btnVer.addActionListener(this);
         btnGuardar.addActionListener(this);
         btnAnadir.addActionListener(this);
@@ -36,8 +40,8 @@ public class Agenda extends JFrame implements ActionListener{
         btnGuardarFich.addActionListener(this);
         btnBorrarCuadros.addActionListener(this);
         listaPersonas = f.obtenerDeArchivo();
-        for (int i = 0; i < listaPersonas.size(); i++){
-            Persona p = (Persona)(listaPersonas.get(i));
+        for (int i = 0; i < listaPersonas.size(); i++) {
+            Persona p = (Persona) (listaPersonas.get(i));
             personas.addItem(p.getNombre() + " " + p.getApellidos());
         }
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -65,28 +69,30 @@ public class Agenda extends JFrame implements ActionListener{
         getContentPane().add(botonera, BorderLayout.SOUTH);
         setTitle("Agenda");
         setVisible(true);
-    }   
-    public void actionPerformed(ActionEvent e){
-        if(e.getSource() == btnVer){
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnVer) {
             indice = f.buscaPersona(listaPersonas, personas);
-            Persona p = (Persona)(listaPersonas.get(indice));
+            Persona p = (Persona) (listaPersonas.get(indice));
             txtNombre.setText(p.getNombre());
             txtApellidos.setText(p.getApellidos());
             txtEmail.setText(p.getDireccion());
             txtTelefono.setText(p.getTelefono());
         }
-        if(e.getSource() == btnBorrarCuadros){
+        if (e.getSource() == btnBorrarCuadros) {
             txtApellidos.setText("");
             txtEmail.setText("");
             txtNombre.setText("");
             txtTelefono.setText("");
         }
-        if(e.getSource() == btnAnadir){
-            Persona x = new Persona(txtNombre.getText(), txtApellidos.getText(), txtEmail.getText(), txtTelefono.getText());
+        if (e.getSource() == btnAnadir) {
+            Persona x = new Persona(txtNombre.getText(), txtApellidos.getText(), txtEmail.getText(),
+                    txtTelefono.getText());
             listaPersonas.add(x);
             personas.removeAllItems();
-            for (int i = 0; i < listaPersonas.size(); i++){
-                Persona p = (Persona)(listaPersonas.get(i));
+            for (int i = 0; i < listaPersonas.size(); i++) {
+                Persona p = (Persona) (listaPersonas.get(i));
                 personas.addItem(p.getNombre() + " " + p.getApellidos());
             }
             txtApellidos.setText("");
@@ -94,12 +100,12 @@ public class Agenda extends JFrame implements ActionListener{
             txtNombre.setText("");
             txtTelefono.setText("");
         }
-        if(e.getSource() == btnQuitar){
+        if (e.getSource() == btnQuitar) {
             indice = f.buscaPersona(listaPersonas, personas);
             listaPersonas.remove(indice);
             personas.removeAllItems();
-            for (int i = 0; i < listaPersonas.size(); i++){
-                Persona p = (Persona)(listaPersonas.get(i));
+            for (int i = 0; i < listaPersonas.size(); i++) {
+                Persona p = (Persona) (listaPersonas.get(i));
                 personas.addItem(p.getNombre() + " " + p.getApellidos());
             }
             txtApellidos.setText("");
@@ -107,22 +113,29 @@ public class Agenda extends JFrame implements ActionListener{
             txtNombre.setText("");
             txtTelefono.setText("");
         }
-        if(e.getSource() == btnGuardar){
+        if (e.getSource() == btnGuardar) {
             indice = f.buscaPersona(listaPersonas, personas);
-            Persona x = (Persona)(listaPersonas.get(indice));
+            Persona x = (Persona) (listaPersonas.get(indice));
             x.setApellidos(txtApellidos.getText());
             x.setNombre(txtNombre.getText());
             x.setDireccion(txtEmail.getText());
             x.setTelefono(txtTelefono.getText());
             personas.removeAllItems();
-            for (int i = 0; i < listaPersonas.size(); i++){
-                Persona p = (Persona)(listaPersonas.get(i));
+            for (int i = 0; i < listaPersonas.size(); i++) {
+                Persona p = (Persona) (listaPersonas.get(i));
                 personas.addItem(p.getNombre() + " " + p.getApellidos());
             }
             txtApellidos.setText("");
             txtEmail.setText("");
             txtNombre.setText("");
             txtTelefono.setText("");
+        }
+        if (e.getSource() == btnGuardarFich) {
+            try {
+                f.ponerEnArchivo(listaPersonas);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 }
