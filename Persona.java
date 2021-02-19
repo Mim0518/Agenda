@@ -1,4 +1,3 @@
-import java.util.*;
 public class Persona{
 	String nombre;
 	String apellidos;
@@ -35,7 +34,7 @@ public class Persona{
 		this.telefono = telefono;
 	}
 	public String toString(){
-		return nombre + ", " + apellidos + ", " + email + ", " + telefono;
+		return nombre + "," + apellidos + "," + email + "," + telefono;
 	}
 
 }
