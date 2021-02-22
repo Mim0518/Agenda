@@ -4,6 +4,6 @@ Guillermo Moreno Rivera
 */
 public class AgendaMain{
     public static void main (String []args){
-        Agenda a = new Agenda();
+        Login a = new Login();
     }
 }
