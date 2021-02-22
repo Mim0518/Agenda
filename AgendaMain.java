@@ -4,6 +4,7 @@ Guillermo Moreno Rivera
 */
 public class AgendaMain{
     public static void main (String []args){
+        Contraseña c = new Contraseña();
         Agenda a = new Agenda();
     }
 }
