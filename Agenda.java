@@ -18,6 +18,7 @@ public class Agenda extends JFrame implements ActionListener {
     JTextField apellidos = new JTextField(20);
     JTextField email = new JTextField(20);
     JTextField telefono = new JTextField(20);
+    JTextField fecha = new JTextField(20);
     JPanel botonera = new JPanel();
     JPanel centro = new JPanel();
     JPanel encabezado = new JPanel();
@@ -34,6 +35,7 @@ public class Agenda extends JFrame implements ActionListener {
     public Agenda() {
         setLayout(new FlowLayout(FlowLayout.CENTER, 10 , 10));
         setResizable(false);
+
         btnVer = setDisenoBtn(btnVer);
         btnVer.addActionListener(this);
         btnGuardar = setDisenoBtn(btnGuardar);
@@ -51,13 +53,18 @@ public class Agenda extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(550, 380);
         encabezado.setLayout(new GridLayout(2, 1));
-        JLabel JLa[] = {new JLabel ("Usarios"), new JLabel ("Nombre"), new JLabel("Apellidos"), new JLabel("Correo electrónico"), new JLabel("Teléfono")};
+        JLabel JLa[] = {new JLabel ("Usarios"),
+                        new JLabel ("Nombre"),
+                        new JLabel("Apellidos"), 
+                        new JLabel("Correo electrónico"), 
+                        new JLabel("Teléfono"),
+                        new JLabel("Fecha de nacimiento")};
         for (int i = 0; i < JLa.length; i++) {
             JLa[i].setFont(font);
         }
         encabezado.add(JLa[0]);
         encabezado.add(personas);
-        centro.setLayout(new GridLayout(4, 2, 0 , 5));
+        centro.setLayout(new GridLayout(5, 2, 0 , 5));
         centro.add(JLa[1]);
         centro.add(nombre);
         centro.add(JLa[2]);
@@ -66,6 +73,14 @@ public class Agenda extends JFrame implements ActionListener {
         centro.add(email);
         centro.add(JLa[4]);
         centro.add(telefono);
+        centro.add(JLa[5]);
+        centro.add(fecha);
+        nombre.setFont(font);
+        apellidos.setFont(font);
+        email.setFont(font);
+        telefono.setFont(font);
+        fecha.setFont(font);
+
         botonera.setLayout(new GridLayout(2, 3, 5, 5));
         botonera.add(btnVer);
         botonera.add(btnGuardar);
@@ -73,13 +88,11 @@ public class Agenda extends JFrame implements ActionListener {
         botonera.add(btnQuitar);
         botonera.add(btnGuardarFich);
         botonera.add(btnBorrarCuadros);
-        nombre.setFont(font);
-        apellidos.setFont(font);
-        email.setFont(font);
-        telefono.setFont(font);
+        
         mainP.add(encabezado, BorderLayout.NORTH);
         mainP.add(centro, BorderLayout.CENTER);
         mainP.add(botonera, BorderLayout.SOUTH);
+
         getContentPane().add(mainP);
         mainP.setPreferredSize(new Dimension(500, 300));
         setTitle("Agenda");
@@ -106,6 +119,7 @@ public class Agenda extends JFrame implements ActionListener {
         email.setText("");
         nombre.setText("");
         telefono.setText("");
+        fecha.setText("");
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -116,6 +130,7 @@ public class Agenda extends JFrame implements ActionListener {
             apellidos.setText(p.getApellidos());
             email.setText(p.getDireccion());
             telefono.setText(p.getTelefono());
+            fecha.setText(p.getFecha());
         }
         if (e.getSource() == btnBorrarCuadros) {
             limpiarCampos();
@@ -123,7 +138,7 @@ public class Agenda extends JFrame implements ActionListener {
         }
         if (e.getSource() == btnAnadir) {
             Persona x = new Persona(nombre.getText(), apellidos.getText(), email.getText(),
-                    telefono.getText());
+                    telefono.getText(), fecha.getText());
             listaPersonas.add(x);
             actualizarLista();
             limpiarCampos();
@@ -143,6 +158,7 @@ public class Agenda extends JFrame implements ActionListener {
             x.setNombre(nombre.getText());
             x.setDireccion(email.getText());
             x.setTelefono(telefono.getText());
+            x.setFecha(fecha.getText());
             actualizarLista();
             limpiarCampos();
             JOptionPane.showMessageDialog(null, "Usuario actual modificado", "Agenta - Guardar", JOptionPane.INFORMATION_MESSAGE);
