@@ -8,50 +8,72 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import java.awt.*;
+import javax.swing.*;
+import java.math.*;
 
 public class Login extends JFrame implements ActionListener {
+    Font font = new Font("Verdana", Font.PLAIN, 14);
+
+
     JPanel panel;
-    JLabel usuarioL, contraseñaL, mensaje;
+    JLabel usuarioL, contraseniaL, mensaje;
     JTextField usuarioC;
-    JPasswordField contraseñaC;
+    JPasswordField contraseniaC;
     JButton Ingreso, Cancelar;
 
     public Login() {
+        setLayout(new FlowLayout(FlowLayout.CENTER, 25,25));
+        setSize(300, 300);
         setResizable(false);
+        
         usuarioL = new JLabel();
         usuarioL.setText("Usuario: ");
+        usuarioL.setFont(font);
         usuarioC = new JTextField();
-        contraseñaL = new JLabel();
-        contraseñaL.setText("Contraseña: ");
-        contraseñaC = new JPasswordField();
+        usuarioC.setFont(font);
+        contraseniaL = new JLabel();
+        contraseniaL.setFont(font);
+        contraseniaL.setText("Contraseña: ");
+        contraseniaC = new JPasswordField();
         Ingreso = new JButton("Entrar");
-        panel = new JPanel(new GridLayout(3, 1));
+        Ingreso.setBackground(new Color(25, 118, 210));
+        Ingreso.setFont(font);
+        Ingreso.setForeground(Color.WHITE);
+        Ingreso.setBorderPainted(false);
+        panel = new JPanel(new GridLayout(6, 1));
         panel.add(usuarioL);
         panel.add(usuarioC);
-        panel.add(contraseñaL);
-        panel.add(contraseñaC);
+        panel.add(contraseniaL);
+        panel.add(contraseniaC);
         mensaje = new JLabel();
         panel.add(mensaje);
         panel.add(Ingreso);
+        panel.setPreferredSize(new Dimension(200, 200));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Ingreso.addActionListener(this);
-        add(panel, BorderLayout.CENTER);
+        add(panel);
         setTitle("Autenticación");
-        setSize(300, 100);
+
         setVisible(true);
 
     }
     @Override
     public void actionPerformed(ActionEvent ae) {
         String usuario = usuarioC.getText();
-        String contraseña = contraseñaC.getText();
+        String contraseña = contraseniaC.getText();
         if (usuario.trim().equals("admin") && contraseña.trim().equals("admin")) {
-            mensaje.setText("Bienvenido, " + usuario);
+            JOptionPane.showMessageDialog(null, "Bienvenido, " + usuario, "Credenciales correctas", JOptionPane.INFORMATION_MESSAGE);
             Agenda a = new Agenda();
+            super.dispose();
         } else {
-            mensaje.setText("Credenciales inválidas");
+            JOptionPane.showMessageDialog(null, "Error, credenciales inválidas", "Credenciales inválidas", JOptionPane.ERROR_MESSAGE);
+            
         }
 
     }
+
+    
 
 }
