@@ -44,7 +44,7 @@ public class Persona{
 		this.fecha = fecha;
 	}
 	public String toString(){
-		return nombre + "," + apellidos + "," + email + "," + telefono;
+		return nombre + "," + apellidos + "," + email + "," + telefono + "," + fecha;
 	}
 
 }
