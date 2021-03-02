@@ -1,5 +1,6 @@
 /*
 Guillermo Moreno Rivera
+Luis Fernando Chavez Jimenez
 17/February/2021
 */
 public class AgendaMain{
