@@ -1,17 +1,13 @@
-import java.sql.Date;
-
 public class Persona{
 	String nombre;
 	String apellidos;
 	String email;
 	String telefono;
-	String fecha;
-	public Persona (String nombre, String apellidos, String email, String telefono, String fecha){
+	public Persona (String nombre, String apellidos, String email, String telefono){
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.email = email;
 		this.telefono = telefono;
-		this.fecha = fecha;
 	}
 	public String getNombre(){
 		return nombre;
@@ -25,9 +21,6 @@ public class Persona{
 	public String getTelefono(){
 		return telefono;
 	}
-	public String getFecha(){
-		return fecha;
-	}
 	public void setNombre(String nombre){
 		this.nombre = nombre;
 	}
@@ -39,9 +32,6 @@ public class Persona{
 	}
 	public void setTelefono(String telefono){
 		this.telefono = telefono;
-	}
-	public void setFecha(String fecha){
-		this.fecha = fecha;
 	}
 	public String toString(){
 		return nombre + "," + apellidos + "," + email + "," + telefono;

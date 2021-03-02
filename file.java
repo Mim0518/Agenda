@@ -19,7 +19,7 @@ public class file extends IOException{
             br = new BufferedReader(new FileReader("personas.csv"));
             while((line = br.readLine()) != null){
                 String [] datos = line.split(cvsSplitBy);
-                Persona p = new Persona(datos[0], datos[1], datos[2], datos[3], datos[4]);
+                Persona p = new Persona(datos[0], datos[1], datos[2], datos[3]);
                 a.add(p);
             }
         }catch (IOException e) {
