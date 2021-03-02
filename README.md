@@ -5,4 +5,3 @@ Cuenta con una función de login, y guarda los siguientes datos:
 -Apellido  
 -Email  
 -Teléfono  
--Fecha
